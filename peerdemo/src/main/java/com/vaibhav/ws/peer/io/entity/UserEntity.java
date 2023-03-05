@@ -74,7 +74,7 @@ public class UserEntity implements Serializable {
 	private Long date = new Date().getTime();
 	
 	
-	@OneToMany(targetEntity=BankEntity.class,cascade = CascadeType.ALL)
+	/*@OneToMany(targetEntity=BankEntity.class,cascade = CascadeType.ALL)
 	@JoinColumn(name="newtxnid",referencedColumnName= "id")
 	private List<BankEntity> banktable;
 	
@@ -83,7 +83,7 @@ public class UserEntity implements Serializable {
 	}
 	public void setBanktable(List<BankEntity> banktable) {
 		this.banktable = banktable;
-	}
+	}*/
 	
 	public String getTransactionid() {
 		return transactionid;

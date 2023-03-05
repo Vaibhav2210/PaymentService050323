@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.vaibhav.ws.peer.BankRepository;
 import com.vaibhav.ws.peer.BlockRepository;
+import com.vaibhav.ws.peer.PeerBankRepository;
 import com.vaibhav.ws.peer.UserRepository;
 import com.vaibhav.ws.peer.blockchain.Block;
 import com.vaibhav.ws.peer.blockchain.Blockchain;
 import com.vaibhav.ws.peer.blockchain.Constants;
 import com.vaibhav.ws.peer.blockchain.Miner;
 import com.vaibhav.ws.peer.io.entity.BankEntity;
+import com.vaibhav.ws.peer.io.entity.PeerBankEntity;
 import com.vaibhav.ws.peer.io.entity.UserEntity;
 import com.vaibhav.ws.peer.service.UserService;
 import com.vaibhav.ws.peer.shared.AesCryptUtil;
@@ -35,6 +37,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	BlockRepository blockRepository;
 	
+	@Autowired
+	PeerBankRepository peerBankRepository;
+	
 	@Autowired 
 	Utils utils;
 	
@@ -43,9 +48,10 @@ public class UserServiceImpl implements UserService {
 	
 	final static public String KEY = "1D2A907A05656A7E1A570B14C573D192";
 	
-	String BankName="";
-	String BankBranch="";
-	String BankCode="";
+	String bankName="";
+	String bankBranch="";
+	String bankCode="";
+	Boolean bankVerify=false;
 	
 	String UVR;
 	
@@ -205,16 +211,18 @@ public class UserServiceImpl implements UserService {
 			System.out.println("Miner's Reward : "+miner.getReward());
 		}*/
 
-		List<BankEntity> bankList = bankRepository.findAll();
+		//List<BankEntity> bankList = bankRepository.findAll();
+		
+		List <PeerBankEntity> bankList = (List<PeerBankEntity>) peerBankRepository.findAll();
 		
 		for(int i = 0; i < bankList.size(); i++){
 		if(bankList.get(i).getPeerBankCode().equals(userEntity.getPeerBankCode())) {
 			//System.out.println(bankList.get(i).getPeerBankCode());
 			
-			BankName=bankList.get(i).getPeerBankName().toString();
-			BankBranch=bankList.get(i).getPeerBankBranch().toString();
-			BankCode=bankList.get(i).getPeerBankCode().toString();
-			
+			bankName=bankList.get(i).getPeerBankName().toString();
+			bankBranch=bankList.get(i).getPeerBankBranch().toString();
+			bankCode=bankList.get(i).getPeerBankCode().toString();
+			bankVerify = bankList.get(i).isBank_verify();
 			break;
 			
 			}	
@@ -225,8 +233,9 @@ public class UserServiceImpl implements UserService {
 		//System.out.println(BankCode);
 		
 		userEntity.setOptional("optional");
-		userEntity.setPeerBankBranch(BankBranch);
-		userEntity.setPeerBankName(BankName);
+		userEntity.setPeerBankBranch(bankBranch);
+		userEntity.setPeerBankName(bankName);
+		userEntity.setBank_verify(bankVerify);
 		
 		//bankList.forEach(System.out::println); //printArrays
 		
@@ -274,9 +283,10 @@ public class UserServiceImpl implements UserService {
 		
 		BankEntity bankEntity = new BankEntity();
 		bankEntity.setUVR(AESData);
-		bankEntity.setBank_verify(true);
-		bankEntity.setPeerBankBranch(BankBranch);
-		bankEntity.setPeerBankCode("test");
+		bankEntity.setBank_verify(bankVerify);
+		bankEntity.setPeerBankBranch(bankBranch);
+		bankEntity.setPeerBankCode(bankCode);
+		bankEntity.setPeerBankName(bankName);
 		bankEntity.setTransactionid(tarnsactionId);
 		
 		

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vaibhav.ws.peer.BankRepository;
 import com.vaibhav.ws.peer.BlockRepository;
+import com.vaibhav.ws.peer.PeerBankRepository;
 import com.vaibhav.ws.peer.blockchain.Block;
 import com.vaibhav.ws.peer.blockchain.Blockchain;
 import com.vaibhav.ws.peer.blockchain.Constants;
@@ -23,6 +24,7 @@ import com.vaibhav.ws.peer.blockchain.Miner;
 import com.vaibhav.ws.peer.blockchain.SHA256Helper;
 import com.vaibhav.ws.peer.io.entity.BankEntity;
 import com.vaibhav.ws.peer.io.entity.BlockEntity;
+import com.vaibhav.ws.peer.io.entity.PeerBankEntity;
 import com.vaibhav.ws.peer.service.UserService;
 import com.vaibhav.ws.peer.shared.AesCryptUtil;
 import com.vaibhav.ws.peer.shared.dto.BankDto;
@@ -45,6 +47,9 @@ public class UserController {
 	
 	@Autowired
 	BlockRepository blockRepository;
+	
+	@Autowired
+	PeerBankRepository peerBankRepository;
 	
 	//@Autowired
 	//BankService bankService1;
@@ -103,11 +108,11 @@ public class UserController {
 
 	@PostMapping("/banks")
 	@ResponseStatus(HttpStatus.CREATED)
-	public BankEntity bankEntity(@RequestBody BankEntity bankEntity) {
+	public PeerBankEntity peerBankEntity(@RequestBody PeerBankEntity peerBankEntity) {
 		
 		//bankEntity.setTransactionid("Test");
 		//bankEntity.setUVR("vaibhav");
-		return bankRepository.save(bankEntity);
+		return peerBankRepository.save(peerBankEntity);
 	}
 	
 	
