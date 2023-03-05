@@ -57,7 +57,7 @@ public class UserEntity implements Serializable {
 	private String pid;
 	
 	@Column(nullable=true)
-	private String optional;
+	private String status;
 	
 	@Column(nullable=true)
 	private String email;
@@ -67,6 +67,15 @@ public class UserEntity implements Serializable {
 	
 	@Column(nullable=true)
 	private Long date;
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public long getId() {
 		return id;
@@ -180,14 +189,6 @@ public class UserEntity implements Serializable {
 		this.pid = pid;
 	}
 
-	public String getOptional() {
-		return optional;
-	}
-
-	public void setOptional(String optional) {
-		this.optional = optional;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -210,6 +211,16 @@ public class UserEntity implements Serializable {
 
 	public void setDate(Long date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "UserEntity [id=" + id + ", encrypted_str=" + encrypted_str + ", aes_128bit_enckey=" + aes_128bit_enckey
+				+ ", bank_verify=" + bank_verify + ", firstname=" + firstname + ", lastname=" + lastname + ", UVR="
+				+ UVR + ", phone=" + phone + ", peerBankName=" + peerBankName + ", peerBankCode=" + peerBankCode
+				+ ", peerBankBranch=" + peerBankBranch + ", currency=" + currency + ", amount=" + amount + ", pid="
+				+ pid + ", status=" + status + ", email=" + email + ", transactionid=" + transactionid + ", date="
+				+ date + "]";
 	}
 	
 	
