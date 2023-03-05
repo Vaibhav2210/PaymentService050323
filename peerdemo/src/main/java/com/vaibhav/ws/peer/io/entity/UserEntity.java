@@ -62,7 +62,7 @@ public class UserEntity implements Serializable {
 	private String pid;
 	
 	@Column(nullable=true)
-	private String optional;
+	private String status;
 	
 	@Column(nullable=true)
 	private String email;
@@ -85,6 +85,12 @@ public class UserEntity implements Serializable {
 		this.banktable = banktable;
 	}*/
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getTransactionid() {
 		return transactionid;
 	}
@@ -187,13 +193,5 @@ public class UserEntity implements Serializable {
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
-	public String getOptional() {
-		return optional;
-	}
-	public void setOptional(String optional) {
-		this.optional = optional;
-	}
-	
-	
 
 }

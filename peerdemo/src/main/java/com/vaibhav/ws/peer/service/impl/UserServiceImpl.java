@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
 	String bankBranch="";
 	String bankCode="";
 	Boolean bankVerify=false;
+	String status = "Request Initiated";
 	
 	String UVR;
 	
@@ -135,7 +136,7 @@ public class UserServiceImpl implements UserService {
 		
 		
 		AesCryptUtil aesCryptUtil = new AesCryptUtil(KEY);
-		String AESData = aesCryptUtil.encrypt(userEntity.getTransactionid()+"&"+userEntity.getFirstname()+"&"+userEntity.getLastname()+"&"+userEntity.getAmount()+"&"+userEntity.getCurrency()+"&"+userEntity.getEmail());
+		String AESData = aesCryptUtil.encrypt(userEntity.getPid()+"&"+userEntity.getTransactionid()+"&"+userEntity.getFirstname()+"&"+userEntity.getLastname()+"&"+userEntity.getAmount()+"&"+userEntity.getCurrency()+"&"+userEntity.getEmail());
 		
 		System.out.println(aesCryptUtil.encrypt(userEntity.getFirstname())); // test working
 		System.out.println(AESData); // test working
@@ -232,7 +233,8 @@ public class UserServiceImpl implements UserService {
 		//System.out.println(BankBranch);
 		//System.out.println(BankCode);
 		
-		userEntity.setOptional("optional");
+		//userEntity.setOptional("optional");
+		userEntity.setStatus(status);
 		userEntity.setPeerBankBranch(bankBranch);
 		userEntity.setPeerBankName(bankName);
 		userEntity.setBank_verify(bankVerify);
@@ -270,7 +272,8 @@ public class UserServiceImpl implements UserService {
 		System.out.println(returnValue.getFirstname());
 		System.out.println(returnValue.getId());
 		System.out.println(returnValue.getLastname());
-		System.out.println(returnValue.getOptional());
+		//System.out.println(returnValue.getOptional());
+		System.out.println(returnValue.getStatus());
 		System.out.println(returnValue.getPeerBankBranch());
 		System.out.println(returnValue.getPeerBankCode());
 		System.out.println(returnValue.getPeerBankName());
@@ -283,7 +286,7 @@ public class UserServiceImpl implements UserService {
 		
 		BankEntity bankEntity = new BankEntity();
 		bankEntity.setUVR(AESData);
-		bankEntity.setBank_verify(bankVerify);
+		bankEntity.setBank_verify(!bankVerify);
 		bankEntity.setPeerBankBranch(bankBranch);
 		bankEntity.setPeerBankCode(bankCode);
 		bankEntity.setPeerBankName(bankName);

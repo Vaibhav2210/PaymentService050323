@@ -128,10 +128,11 @@ public class UserController {
 		retunValue.setPeerBankCode(newUserDetails.getPeerBankCode());
 		retunValue.setPhone(newUserDetails.getPhone());
 		retunValue.setEmail(newUserDetails.getEmail());
-		
+		retunValue.setTransactionid("1234567896789");
 		retunValue.setAmount("1000.00");
 		retunValue.setCurrency("INR");
-		retunValue.setOptional("Optinal Field");
+		//retunValue.setOptional("Optinal Field");
+		retunValue.setStatus("Initiated");
 		retunValue.setPeerBankName("State Bank of India");
 		retunValue.setPeerBankBranch("Goregaon West");
 		

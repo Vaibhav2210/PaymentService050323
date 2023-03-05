@@ -12,15 +12,23 @@ public class UserRest {
 	private String currency;
 	private String amount;
 	private String pid;
-	private String optional;
+	private String status;
 	private String email;
+	private String transactionid;
 	
 	
-	public String getOptional() {
-		return optional;
+	
+	public String getStatus() {
+		return status;
 	}
-	public void setOptional(String optional) {
-		this.optional = optional;
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getTransactionid() {
+		return transactionid;
+	}
+	public void setTransactionid(String transactionid) {
+		this.transactionid = transactionid;
 	}
 	public String getEmail() {
 		return email;

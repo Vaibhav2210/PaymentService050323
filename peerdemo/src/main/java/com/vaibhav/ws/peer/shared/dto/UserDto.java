@@ -22,11 +22,19 @@ public class UserDto implements Serializable {
 	private String currency;
 	private String amount;
 	private String pid;
-	private String optional;
+	private String status;
 	private String email;
 	private String transactionid;
 	private Long date = new Date().getTime();
 	
+	
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Long getDate() {
 		return date;
 	}
@@ -129,11 +137,5 @@ public class UserDto implements Serializable {
 	}
 	public void setPid(String pid) {
 		this.pid = pid;
-	}
-	public String getOptional() {
-		return optional;
-	}
-	public void setOptional(String optional) {
-		this.optional = optional;
 	}
 }
