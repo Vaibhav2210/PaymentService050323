@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+
+
 $curl = curl_init();
 
 $Firstname = $_POST['firstname'];
@@ -67,10 +70,130 @@ $resppeerBankBranch = $apiResponse['peerBankBranch'];
 $resppid = $apiResponse['pid'];
 $respstatus = $apiResponse['status'];
 $respuvr = $apiResponse['uvr'];
-$resptransactionid = $apiResponse['transactionid'];
+$resptransactionid = $apiResponse['transactionid']."1";
+$respdate = $apiResponse['date'];
+
+if($response){
+
+$curl1 = curl_init();
+
+curl_setopt_array($curl1, array(
+  CURLOPT_URL => 'http://localhost:8082/bank/transaction',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+    "transactionid":"'.$resptransactionid.'",
+    "uvr": "'.$respuvr.'"
+}',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/json'
+  ),
+));
+$response1 = curl_exec($curl1);
+
+$BankResponse = json_decode($response1, true);
+
+$brespName = $BankResponse['firstname'];
+$brespDate = $BankResponse['date'];
+$brespVerify = $BankResponse['bank_verify'];
+$brespLastname = $BankResponse['lastname'];
+$brespPhone = $BankResponse['phone'];
+$brespBankName = $BankResponse['peerBankName'];
+$brespBankCode = $BankResponse['peerBankCode'];
+$brespBranchCode = $BankResponse['peerBankBranch'];
+$brespAmount = $BankResponse['amount'];
+$brespPID = $BankResponse['pid'];
+$brespStatus = $BankResponse['status'];
+$brespEmail = $BankResponse['email'];
+$brespTxnID = $BankResponse['transactionid'];
+$brespUVR = $BankResponse['uvr'];
+$brespCurrency = $BankResponse['currency'];
 
 
-echo "<B>Transaction ID: </B>".$resptransactionid;
+echo "<B>Transaction ID: </B>".$brespTxnID;
+echo "<br>";
+
+echo "<B>UVR: </B>".$brespUVR;
+echo "<br>";
+
+echo "<B>Customer Name: </B>".$brespName;
+echo "<br>";
+
+echo "<B>Transaction Status: </B>".$brespStatus;
+echo "<br>";
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+echo "<B>Date: </B>".$brespDate;
+echo "<br>";
+
+
+
+
+//echo idate('y', $brespDate);
+
+print_r($response1);
+
+
+
+if($brespTxnID == $resptransactionid && $brespUVR == $respuvr ){
+  //Success
+  sleep(5);
+  header("Location: http://www.example.com/another-page.php");
+  exit();
+}else{
+
+header("Location: http://google.com");
+exit();
+}
+
+curl_close($curl1); 
+
+}
+
+/*echo "<B>Transaction ID: </B>".$resptransactionid;
 echo "<br>";
 
 echo "<B>UVR: </B>".$respuvr;
@@ -107,7 +230,7 @@ echo "<B>Currency </B>".$respcurrency;
 echo "<br>";
 
 echo "<B>Email ID: </B>".$respemail;
-echo "<br>";
+echo "<br>";*/
 
 
 
